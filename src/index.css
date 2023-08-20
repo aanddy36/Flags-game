@@ -103,24 +103,6 @@ body{
   left: 37%;
   transform: translate(-50%, -50%);
 }
-/*.europe div{
-  background-color: #a74cf1;
-}
-.africa div{
-  background-color: #f0833a;
-}
-.oceania div{
-  background-color: #4caff1;
-}
-.s-america div{
-  background-color: #74d633;
-}
-.n-america div{
-  background-color: #f14040;
-}
-.asia div{
-  background-color: #f0e442;
-}*/
 .oceania{
   position: absolute;
   top: 68%;
@@ -208,6 +190,57 @@ body{
     left: 64%;
 }
 }
+/*--language menu--*/
+.languages{
+ display: flex;
+ flex-direction: column;
+ background-color: transparent;
+ margin-top: 80px;
+ gap: 5px;
+}
+.language-menu{
+  width: 150px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(68, 68, 68, 0.822);
+  padding: 7px;
+  background-color: #353535;
+  transition: all 0ms;
+  position: relative;
+  z-index: 1;
+}
+.language-menu div{
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.selected-language{
+  background-color: #161616 !important;
+}
+.language-menu label{
+  /*border: 1px solid blue;*/
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: transparent;
+  border-radius: 5px;
+  color: white;
+  padding-left: 5px;
+}
+.language-menu label:hover{
+  background-color: #8b8b8b !important;
+}
+.mini-img{
+  width: 20px;
+  height: 14px;
+  border: 8px;
+}
+.language-menu input{
+  visibility: hidden;
+  position: absolute;
+}
 
 /*FLAGS PAGE*/
 /*--navbar--*/
@@ -260,6 +293,7 @@ body{
   font-size: 18px;
   cursor: pointer;
   border: none;
+  padding: 2px;
 }
 .selected button{
   text-shadow: 0px 0px 8px black;
@@ -268,6 +302,47 @@ body{
 .navbar-list button:hover{
   text-shadow: 0px 0px 8px black;
   color: #ffffff;
+}
+.language-menu-navbar{
+  position: absolute;
+  top: 25px;
+  left: -120px;
+  width: 150px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(15, 15, 15, 0.904);
+  padding: 7px;
+  background-color: #bbbbbb;
+  transition: all 0ms;
+  z-index: 1;
+}
+.language-menu-navbar div{
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.navbar-selected-language{
+  background-color: #ffffff !important;
+}
+.language-menu-navbar label{
+  /*border: 1px solid blue;*/
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: transparent;
+  border-radius: 5px;
+  color: #161616;
+  padding-left: 5px;
+}
+.language-menu-navbar label:hover{
+  background-color: #8b8b8b !important;
+}
+
+.language-menu-navbar input{
+  visibility: hidden;
+  position: absolute;
 }
 /*--- toggle menu ---*/
 .toggle-menu{
@@ -330,6 +405,48 @@ body{
 }
 .translate-toggle{
   background-color: #1b1d83;
+}
+.toggle-language-menu{
+  position: absolute;
+  bottom: 30px;
+  left: -90px;
+  width: 150px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(15, 15, 15, 0.904);
+  padding: 7px;
+  background-color: #bbbbbb;
+  transition: all 0ms;
+  z-index: 1;
+}
+
+.toggle-language-menu div{
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.toggle-selected-language{
+  background-color: #ffffff !important;
+}
+.toggle-language-menu label{
+  /*border: 1px solid blue;*/
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: transparent;
+  border-radius: 5px;
+  color: #161616;
+  padding-left: 5px;
+}
+.toggle-language-menu label:hover{
+  background-color: #8b8b8b !important;
+}
+
+.toggle-language-menu input{
+  visibility: hidden;
+  position: absolute;
 }
 @media (max-width:1300px) and (min-width:1050px) {
   .navbar-list button{
@@ -567,9 +684,11 @@ body{
 }
 .play-again-btn{
   background-color: #1b1d83;
+  max-width: 170px;
 }
 .main-menu-btn{
   background-color: #1b8324;
+  max-width: 170px;
 }
 .results-btns button:hover{
   scale: 1.1

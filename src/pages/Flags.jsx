@@ -5,17 +5,35 @@ import { FaAngleRight } from 'react-icons/fa';
 import { useFlags } from '../useFlags.jsx';
 import { Results } from '../components/Results.jsx';
 
-
 export const Flags = () => {
     const {continent} = useParams()
-    const {allCountries, missingCountries, selectedCountry, timeAsStrings, wrongAnswers,
-      cursorPosition, isCursorIn, correctAnswers, isTimerRunning, startNewGame, addOneSecond, 
+    const {allCountries, missingCountries, selectedCountry, timeAsStrings, wrongAnswers, language,
+      cursorPosition, isCursorIn, correctAnswers, correctCountries, isTimerRunning, startNewGame, addOneSecond, 
       passToOtherCountry, newCursorPosition, cursorOut, rightAnswer, stopTimer, incorrectAnswer} =useFlags()
+
+    const [continente, setContinente] = useState()
 
     useEffect(() => {
       window.scrollTo(0, 0);
       startNewGame(continent)
     }, [continent]);
+
+    useEffect(()=>{
+      setContinente(()=>{
+        if(continent == "Africa"){
+          return "África"}
+        if(continent == "Oceania"){
+          return "Oceanía"}
+        if(continent == "Europe"){
+          return "Europa"}
+        if(continent == "North America"){
+          return "América del Norte"}
+        if(continent == "South America"){
+          return "América del Sur"}
+        if(continent == "World"){
+          return "Mundo"}
+      })
+    },[continent, language])
   
     useEffect(() => {
       let interval;
@@ -33,25 +51,18 @@ export const Flags = () => {
 
     const pressFlag = (decision)=>{
       const {cioc} = decision
-      const boton = document.querySelector(`#${cioc} button`)
       const wrongMessage = document.querySelector(`#${cioc} div`)
-      console.log(boton);
       if(cioc === selectedCountry.cioc){
-        console.log(cioc);
-        const imagen = document.querySelector(`#${cioc} img`)
-        boton.style.pointerEvents = 'none';
-        imagen.classList.add("button-disabled")
-        rightAnswer(cioc)
+        console.log(decision);
+        rightAnswer(cioc, decision)
       }else{
         wrongMessage.style.display = "block"
         setTimeout(()=>{
           wrongMessage.style.display = "none"
         },[1500])
         incorrectAnswer()
-        console.log(wrongMessage);
       }
     }
-    //useEffect(()=>console.log(`Overlay en Flags.jsx: ${isOverlayOn}`),[isOverlayOn])
 
     useEffect(()=>{
       if(missingCountries.length === 0){
@@ -59,30 +70,43 @@ export const Flags = () => {
       }
     },[missingCountries])
 
+    
   return (
     <div>
       <Navbar params={continent}/>
-      <h1 className='flag-title'>{`${continent}: Flags`}<span style={{color: "#5e5e5e"}}> - Flags Quiz Games</span></h1>
+      <h1 className='flag-title'>
+        {language === 'english' ? `${continent}: Flags` : `${continente}: Banderas`}
+        <span style={{color: "#5e5e5e"}}> - {language === "english" ? 'Flags Quiz Games' : 'Quiz de Banderas'}</span>
+      </h1>
       <div className='flag-info'>
         <div style={{display:"flex", justifyContent:"space-between", gap:"20px"}}>
           <h3>{correctAnswers}/{allCountries.length}</h3>
-           <h3>{!correctAnswers ? 0 : Math.floor(correctAnswers / (correctAnswers+wrongAnswers)*100)}%</h3>
+          <h3>{!correctAnswers ? 0 : Math.floor(correctAnswers / (correctAnswers+wrongAnswers)*100)}%</h3>
         </div>
         <h3>{timeAsStrings}</h3>
-        <h3 className='selected-country'>{selectedCountry ? selectedCountry.name.common : ""}<button style={{display: missingCountries.length > 0 ? "block" : "none"}} onClick={passToOtherCountry} className='next-country'><FaAngleRight/></button></h3>
+        <h3 className='selected-country'>
+          {selectedCountry ? (language === "english" ? selectedCountry.name.common : selectedCountry.translations.spa.common) : ""}
+          <button style={{display: missingCountries.length > 0 ? "block" : "none"}} onClick={passToOtherCountry} className='next-country'>
+            <FaAngleRight/>
+          </button>
+        </h3>
       </div>
       <div className='flag-cont' onMouseMove={newCursorPosition} onMouseEnter={()=>cursorOut(false)} onMouseLeave={()=>cursorOut(true)}>    
-      <p className='cursor-follower' style={{ left: cursorPosition.x, top: cursorPosition.y, display: isCursorIn && selectedCountry ? "flex" : "none" , }}>{selectedCountry ? `Click on ${selectedCountry?.name.common}`:""}</p>  
+        <p className='cursor-follower' style={{ left: cursorPosition.x, top: cursorPosition.y, display: isCursorIn && selectedCountry ? "flex" : "none" , }}>
+          {selectedCountry ? (language === 'english' ? `Click on ${selectedCountry.name.common}` : `Hunde en ${selectedCountry.translations.spa.common}`):""}
+        </p>  
         {allCountries.map(country =>{
           return <div className='flag-btn-cont' key={country.cioc}  id={country.cioc}> 
-            <button className='flag-btn' onClick={()=>pressFlag(country)}>
-              <img src={country.flags.png} alt={country.flags.alt} className='flag'/>
-            </button>
-            <div className='wrong-country'>{country.name.common}</div>
+              <button className='flag-btn' style={{pointerEvents: correctCountries.includes(country) ? "none" : "auto"}} onClick={()=>pressFlag(country)}>
+                <img src={country.flags.png} alt={country.flags.alt} className={correctCountries.includes(country) ? 'flag button-disabled' : 'flag'}/>
+              </button>
+              <div className='wrong-country'>
+                {language === 'english' ? country.name.common : country.translations.spa.common}
+              </div>
           </div>
         })}
       </div>
-      <Results/>
+      <Results continente={continente}/>
     </div>
   )
 }

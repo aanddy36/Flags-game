@@ -10,6 +10,7 @@ const CORRECT_ANSWER = 'CORRECT_ANSWER';
 const STOP_TIMER = 'STOP_TIMER';
 const WRONG_ANSWER = 'WRONG_ANSWER';
 const REMOVE_OVERLAY = 'REMOVE_OVERLAY'
+const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE'
 
 const ContextVariable = createContext()
 export const useFlags = () => useContext(ContextVariable)
@@ -30,7 +31,8 @@ const reducer = (state, action) =>{
         isTimerRunning: true,
         correctAnswers: 0,
         wrongAnswers: 0,
-        isOverlayOn: false
+        isOverlayOn: false,
+        correctCountries : []
       }
     }
     if(action.type === SUM_ONE_SEC){
@@ -68,10 +70,10 @@ const reducer = (state, action) =>{
             missingCountries: newArray,
             selectedCountry: newArray.length > 0 ? getRandomItemFromArray(newArray) : "",
             correctAnswers: state.correctAnswers + 1,
+            correctCountries: [...state.correctCountries, action.payload.country]
         }
     }
     if(action.type === STOP_TIMER){
-        console.log("PARO");
         return {
             ...state,
             isTimerRunning: false,
@@ -90,12 +92,19 @@ const reducer = (state, action) =>{
         isOverlayOn: false
       }
     }
+    if(action.type === CHANGE_LANGUAGE){
+      return {
+        ...state,
+        language: action.payload.language
+      }
+    }
     return state
   }
 
 const initialState = {
     allCountries: [],
     missingCountries: ["S"],
+    correctCountries: [],
     selectedCountry: null,
     timer: 0,
     isTimerRunning: true,
@@ -103,7 +112,8 @@ const initialState = {
     isCursorIn: false,
     correctAnswers: 0,
     wrongAnswers: 0,
-    isOverlayOn: false
+    isOverlayOn: false,
+    language: "english"
 }
   
 function shuffleArray(array) {
@@ -122,6 +132,7 @@ export const FlagsVariables = ({children}) => {
     const [{
         allCountries,
         missingCountries,
+        correctCountries,
         selectedCountry,
         timer,
         isTimerRunning,
@@ -129,7 +140,8 @@ export const FlagsVariables = ({children}) => {
         isCursorIn,
         correctAnswers,
         wrongAnswers,
-        isOverlayOn
+        isOverlayOn,
+        language
     }, dispatch] = useReducer(reducer, initialState)
     
     const startNewGame = (continent)=>{
@@ -156,8 +168,8 @@ export const FlagsVariables = ({children}) => {
     }
     const timeAsStrings = timeInHoursMins(timer)
 
-    const rightAnswer = (id)=>{
-        dispatch({type: CORRECT_ANSWER, payload: {id}})
+    const rightAnswer = (id, country)=>{
+        dispatch({type: CORRECT_ANSWER, payload: {id, country}})
     }
 
     const stopTimer = ()=>{
@@ -169,7 +181,10 @@ export const FlagsVariables = ({children}) => {
     const removeOverlay = ()=>{
       dispatch({type: REMOVE_OVERLAY})
     }
-    //useEffect(()=>console.log(`Overlay en useFlag.jsx: ${isOverlayOn}`),[isOverlayOn])
+    const changeLanguage = (language)=>{
+      dispatch({type: CHANGE_LANGUAGE, payload: {language}})
+    }
+    //useEffect(()=>console.log(correctCountries),[correctCountries])
   return <ContextVariable.Provider value={ {allCountries,
     missingCountries,
     selectedCountry,
@@ -180,6 +195,8 @@ export const FlagsVariables = ({children}) => {
     correctAnswers,
     wrongAnswers,
     isOverlayOn,
+    language,
+    correctCountries,
     startNewGame,
     addOneSecond,
     passToOtherCountry,
@@ -188,7 +205,8 @@ export const FlagsVariables = ({children}) => {
     rightAnswer,
     stopTimer,
     incorrectAnswer,
-    removeOverlay
+    removeOverlay,
+    changeLanguage
  }}>
     {children}
   </ContextVariable.Provider>
