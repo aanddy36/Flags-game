@@ -39,6 +39,10 @@ body{
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
   font-size: 44px;
 }
+.title-cont p{
+  font-size: 20px;
+  text-align: center;
+}
 /*--logos--*/
 .logos{
   display: flex;
@@ -65,7 +69,11 @@ body{
 .translate-logo{
   border-radius: 5px;
 }
-
+@media (max-width:700px){
+  .translate-logo{
+    margin-left: 60px;
+  }
+}
 /*--links--*/
 .home-links button{
   text-decoration: none;
@@ -162,32 +170,42 @@ body{
 }
 @media (max-width:700px) {
   .all{
-    top: 78%;
+    top: 76%;
     left: 50%;
   }
   .europe{
-    top: 67%;
-    left: 25%;
+    top: 64%;
+    left: 23%;
   }
   .oceania{
-    top: 67%;
-    left: 75%;
+    top: 64%;
+    left: 77%;
   }
   .africa{
     top: 44%;
-    left: 15%;
+    left: 13%;
   }
   .n-america{
     top: 44%;
-    left: 85%;
+    left: 87%;
  }
   .s-america{
-    top: 25%;
-    left: 36%;
+    top: 27%;
+    left: 33%;
 }
   .asia{
-    top: 25%;
-    left: 64%;
+    top: 27%;
+    left: 67%;
+}
+.title{
+  font-size: 34px;
+}
+.title-cont p{
+  font-size: 17px;
+}
+.home-links button{
+  width: 80px;
+  font-size: 13px;
 }
 }
 /*--language menu--*/
@@ -480,6 +498,11 @@ body{
   padding: 80px 70px 40px 70px;
   font-weight: 900;
 }
+@media (max-width: 540px) {
+  .flag-title{
+    padding: 80px 30px 40px 30px;
+  }
+}
 .flag-btn-cont{
   display: flex;
   flex-direction: column;
@@ -560,12 +583,15 @@ body{
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
-@media (max-width:670px){
+@media (max-width:670px) and (min-width: 540px) {
   .flag-cont{
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 60px 10px;
   }
 }
+@media (max-width:540px){
+  .flag-cont{
+    grid-template-columns: 1fr 1fr;
+  }}
 @media (max-width: 870px) {
   .flag-info{
     height: 100px;
@@ -648,6 +674,7 @@ body{
   justify-content: space-between;
 
 }
+
 .results-titles{
   font-weight: 300;
 }
@@ -670,6 +697,7 @@ body{
   width: 370px;
   /*color: #1b8324;*/
 }
+
 .results-btns button{
   text-transform: uppercase;
   font-style: italic;
@@ -692,6 +720,25 @@ body{
 }
 .results-btns button:hover{
   scale: 1.1
+}
+@media (max-width: 550px){
+  .results{
+    width: 350px;
+  }
+  .results-btns{
+    width: 280px;
+  }
+  .results-btns button{
+    font-size: 20px;
+    max-width: 130px;
+  }
+  .score-and-time{
+    gap: 55px;
+  }
+  .results-conts h3{
+    padding: 5px;
+    text-align: center;
+  }
 }
 .result-logo, .result-logo:visited{
   scale: 2.5;

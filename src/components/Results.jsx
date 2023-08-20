@@ -32,7 +32,7 @@ export const Results = ({continente}) => {
                 <button className='play-again-btn' onClick={()=>startNewGame(continent)}>
                     {language === "english" ? 'Play Again' : 'Juega de nuevo'}
                 </button>
-                <Link to='/'><button className='main-menu-btn' >{language === "english" ? 'Main Menu' : 'Menú Principal'}</button></Link>
+                <Link to='/' onClick={()=>startNewGame(continent)}><button className='main-menu-btn' >{language === "english" ? 'Main Menu' : 'Menú Principal'}</button></Link>
             </div>
             <div className='social-med-results'>
                 <Link to='https://github.com/aanddy36'><FaGithub className='result-logo'/></Link>

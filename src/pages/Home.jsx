@@ -17,7 +17,7 @@ export const Home = () => {
       <div className='home-cont'>
         <div className='title-cont'>
             <h1 className='title'>Flags Game</h1>
-            <p style={{fontSize: "20px", textAlign:"center"}}>
+            <p>
               {language === 'english' ? 'Guess the country flags!' : '¡Adivina las banderas de los países!'}
             </p>
         </div>

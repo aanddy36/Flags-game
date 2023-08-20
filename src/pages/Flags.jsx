@@ -7,7 +7,7 @@ import { Results } from '../components/Results.jsx';
 
 export const Flags = () => {
     const {continent} = useParams()
-    const {allCountries, missingCountries, selectedCountry, timeAsStrings, wrongAnswers, language,
+    const {allCountries, missingCountries, selectedCountry, timeAsStrings, wrongAnswers, language, isOverlayOn,
       cursorPosition, isCursorIn, correctAnswers, correctCountries, isTimerRunning, startNewGame, addOneSecond, 
       passToOtherCountry, newCursorPosition, cursorOut, rightAnswer, stopTimer, incorrectAnswer} =useFlags()
 
@@ -69,6 +69,8 @@ export const Flags = () => {
         stopTimer()
       }
     },[missingCountries])
+
+    useEffect(()=>console.log(isOverlayOn),[isOverlayOn])
 
     
   return (

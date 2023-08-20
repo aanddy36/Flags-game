@@ -184,7 +184,7 @@ export const FlagsVariables = ({children}) => {
     const changeLanguage = (language)=>{
       dispatch({type: CHANGE_LANGUAGE, payload: {language}})
     }
-    //useEffect(()=>console.log(correctCountries),[correctCountries])
+    useEffect(()=>console.log("isOverlay on en useFlags.jsx: " + isOverlayOn),[isOverlayOn])
   return <ContextVariable.Provider value={ {allCountries,
     missingCountries,
     selectedCountry,
