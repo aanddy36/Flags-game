@@ -21523,7 +21523,7 @@ export const countries = [
                 }
             }
         },
-        "cioc": "",
+        "cioc": "VAC",
         "unMember": true,
         "capital": [
             "Vatican City"
