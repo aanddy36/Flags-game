@@ -17,12 +17,13 @@ As soon as you pick the Game Mode, their respective flags will be displayed and 
 
 ## Technologies used
 - React
+- React Router
 - JavaScript
 - CSS
 
 ## Concepts Applied
-- ***Global State Management*** using useReducer()
-- ***Routing*** with React Router
+- ***Global State Management*** using useReducer() + Context API
+- ***Routing*** with React Router library
 - ***Global variables*** for changing languages
 - Responsive for all devices
 - ***Hooks***: useState, useEffect, useReducer, useContext.
